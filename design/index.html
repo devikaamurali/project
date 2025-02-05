@@ -1,64 +1,131 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Header</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linkify</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'indexstyle.css' %}">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <!-- Logo -->
-            <a class="navbar-brand" href="#">My Website</a>
-            
-            <!-- Hamburger button for mobile -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#navbarContent" aria-controls="navbarContent" 
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+    />
+    <style>
+      /* Minimal custom styles */
+      .navbar {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .feature-icon {
+        font-size: 2.5rem;
+        color: #0d6efd;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container">
+        <a class="navbar-brand fw-bold fs-4" href="#">Linkify</a>
 
-            <!-- Navigation items -->
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <!-- Services Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" 
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Services
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                            <li><a class="dropdown-item" href="#">Link Verification</a></li>
-                            <li><a class="dropdown-item" href="#">Cyber security News</a></li>
-                            <li><a class="dropdown-item" href="#">URL Shortener</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-                <!-- Login Button -->
-                <div class="d-flex">
-                    <a href="{% url 'login' %}" class="btn btn-primary mx-2">Login</a>
-                    <a href="{% url 'signup' %}" class="btn btn-primary mx-2">Signup</a>
-                </div>
-            </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="servicesDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Services
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                <li><a class="dropdown-item" href="#">Link Verification</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Cyber security News</a>
+                </li>
+                <li><a class="dropdown-item" href="#">URL Shortener</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Feedback</a>
+            </li>
+          </ul>
+          <div class="d-flex">
+            <a href="{% url 'login' %}" class="btn btn-primary mx-2">Login</a>
+            <a href="{% url 'signup' %}" class="btn btn-primary mx-2">Signup</a>
+          </div>
         </div>
+      </div>
     </nav>
+
+    <!-- Features Section -->
+    <section class="py-5">
+      <div class="container">
+        <h1 class="text-center mb-5">Our Key Features</h1>
+        <div class="row g-4">
+          <!-- Feature 1 -->
+          <div class="col-md-4">
+            <div class="bg-white p-4 text-center h-100 rounded shadow-sm">
+              <i class="bi bi-shield-check feature-icon mb-4"></i>
+              <h2 class="h4 mb-3">Link Verification</h2>
+              <p class="text-muted mb-0">
+                Verify the authenticity and safety of any URL before clicking.
+                Protect yourself from phishing and malicious websites.
+              </p>
+            </div>
+          </div>
+          <!-- Feature 2 -->
+          <div class="col-md-4">
+            <div class="bg-white p-4 text-center h-100 rounded shadow-sm">
+              <i class="bi bi-newspaper feature-icon mb-4"></i>
+              <h2 class="h4 mb-3">Cyber Security News</h2>
+              <p class="text-muted mb-0">
+                Stay updated with the latest cybersecurity threats,
+                vulnerabilities, and best practices.
+              </p>
+            </div>
+          </div>
+          <!-- Feature 3 -->
+          <div class="col-md-4">
+            <div class="bg-white p-4 text-center h-100 rounded shadow-sm">
+              <i class="bi bi-link-45deg feature-icon mb-4"></i>
+              <h2 class="h4 mb-3">URL Shortener</h2>
+              <p class="text-muted mb-0">
+                Transform long URLs into concise, shareable links while
+                maintaining security.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-</body>
+  </body>
 </html>
