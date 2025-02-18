@@ -16,3 +16,6 @@ def about(request):
 def feedback(request):
     return render(request, 'feedback.html')
 
+def verify(request):
+    return render(request, 'linkverify.html')
+

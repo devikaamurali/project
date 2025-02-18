@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linkify</title>
+    <title>Linkify - Search</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -14,13 +14,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
     />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
       .navbar {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .feature-icon {
-        font-size: 2.5rem;
-        color: #0d6efd;
       }
       .centered-content {
         display: flex;
@@ -29,13 +27,38 @@
         align-items: center;
         min-height: 80vh;
       }
+      .search-box {
+        width: 100%;
+        max-width: 500px;
+        position: relative;
+      }
+      .search-box input {
+        padding-right: 50px;
+        border-radius: 25px;
+        border: 1px solid #ced4da;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .search-box button {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: transparent;
+        cursor: pointer;
+      }
+      .error-message {
+        color: red;
+        font-size: 1.2rem;
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body class="bg-light">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container">
-        <a class="navbar-brand fw-bold fs-4" href="#">Linkify</a>
+        <a class="navbar-brand fw-bold fs-4" href="">Linkify</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -49,8 +72,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about">About</a></li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -78,40 +101,22 @@
       </div>
     </nav>
     
-    <!-- Features Section -->
+    <!-- Search Section -->
     <div class="centered-content">
-      <section class="py-5">
-        <div class="container text-center">
-          <h1 class="mb-5">Our Key Features</h1>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="bg-white p-4 rounded shadow-sm h-100">
-                <i class="bi bi-shield-check feature-icon mb-3"></i>
-                <h2 class="h4">Link Verification</h2>
-                <p class="text-muted">Verify URL authenticity and avoid phishing threats.</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-white p-4 rounded shadow-sm h-100">
-                <i class="bi bi-newspaper feature-icon mb-3"></i>
-                <h2 class="h4">Cyber Security News</h2>
-                <p class="text-muted">Stay updated with the latest threats and security news.</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-white p-4 rounded shadow-sm h-100">
-                <i class="bi bi-link-45deg feature-icon mb-3"></i>
-                <h2 class="h4">URL Shortener</h2>
-                <p class="text-muted">Create secure and concise links easily.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div class="search-box">
+        <input type="text" class="form-control" placeholder="Search..." />
+        <button type="button">
+          <i data-lucide="search"></i>
+        </button>
+      </div>
+      <div class="error-message">Error</div>
     </div>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
   </body>
 </html>
