@@ -9,5 +9,5 @@ urlpatterns = [
     path('about/', views.about,name="about"),
     path('feedback/', views.feedback,name="feedback"),
     path('verify/', views.verify,name="verify"),
-    
+    path("check-url/", views.check_url_validity, name="check_url_validity"),
 ]

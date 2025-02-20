@@ -1,122 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Linkify - Search</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Bootstrap Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
-    />
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-      .navbar {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .centered-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 80vh;
-      }
-      .search-box {
-        width: 100%;
-        max-width: 500px;
-        position: relative;
-      }
-      .search-box input {
-        padding-right: 50px;
-        border-radius: 25px;
-        border: 1px solid #ced4da;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      .search-box button {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        border: none;
-        background: transparent;
-        cursor: pointer;
-      }
-      .error-message {
-        color: red;
-        font-size: 1.2rem;
-        margin-top: 10px;
-      }
-    </style>
-  </head>
-  <body class="bg-light">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-      <div class="container">
-        <a class="navbar-brand fw-bold fs-4" href="">Linkify</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
-          aria-controls="navbarContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="about">About</a></li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="servicesDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Services
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                <li><a class="dropdown-item" href="verify">Link Verification</a></li>
-                <li><a class="dropdown-item" href="#">Cyber Security News</a></li>
-                <li><a class="dropdown-item" href="#">URL Shortener</a></li>
-              </ul>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="#">Feedback</a></li>
-          </ul>
-          <div class="d-flex">
-            <a href="{% url 'login' %}" class="btn btn-primary mx-2">Login</a>
-            <a href="{% url 'signup' %}" class="btn btn-outline-primary mx-2">Signup</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-    
-    <!-- Search Section -->
-    <div class="centered-content">
-      <div class="search-box">
-        <input type="text" class="form-control" placeholder="Search..." />
-        <button type="button">
-          <i data-lucide="search"></i>
-        </button>
-      </div>
-      <div class="error-message">Error</div>
-    </div>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Validator</title>
+</head>
+<body>
+    <h2>Check if URL is Safe</h2>
+    <form id="url-form">
+        <input type="text" id="url-input" placeholder="Enter URL" required>
+        <button type="submit">Check</button>
+    </form>
+
+    <h3>Result:</h3>
+    <div id="result-container"></div>
+
     <script>
-      lucide.createIcons();
+        document.getElementById("url-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let url = document.getElementById("url-input").value;
+
+            fetch(`/check-url/?url=${encodeURIComponent(url)}`)
+                .then(response => response.json())
+                .then(data => {
+                    let resultContainer = document.getElementById("result-container");
+
+                    if (data.status === "invalid") {
+                        resultContainer.innerHTML = `<p style="color:orange;">⚠️ ${data.message}</p>`;
+                    } else if (data.status === "spam") {
+                        resultContainer.innerHTML = `<p style="color:red;">🚨 ${data.message}</p>`;
+                    } else if (data.status === "phishing") {
+                        resultContainer.innerHTML = `<p style="color:red;">🚨 This URL is phishing/malware!</p>`;
+                    } else if (data.status === "safe") {
+                        resultContainer.innerHTML = `<p style="color:green;">✅ ${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("result-container").innerHTML = `<p style="color:red;">Error checking URL</p>`;
+                });
+        });
     </script>
-  </body>
+</body>
 </html>
