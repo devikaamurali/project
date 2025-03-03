@@ -18,12 +18,10 @@
       .navbar {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
-      .centered-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 80vh;
+      .about-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
       }
     </style>
   </head>
@@ -31,7 +29,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container">
-        <a class="navbar-brand fw-bold fs-4" href="index.html">Linkify</a>
+        <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">Linkify</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -45,12 +43,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
-                href="#"
+                href="service.html"
                 id="servicesDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -59,27 +57,34 @@
                 Services
               </a>
               <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                <li><a class="dropdown-item" href="verify.html">Link Verification</a></li>
-                <li><a class="dropdown-item" href="cyber.html">Cyber Security News</a></li>
-                <li><a class="dropdown-item" href="url.html">URL Shortener</a></li>
+                <li><a class="dropdown-item" href="{% url 'verify' %}">Link Verification</a></li>
+                <li><a class="dropdown-item" href="{% url 'cyber' %}">Cyber Security News</a></li>
+                <li><a class="dropdown-item" href="{% url 'short' %}">URL Shortener</a></li>
               </ul>
             </li>
-            <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
     <!-- About Content -->
-    <div class="centered-content">
-      <section class="py-5">
-        <div class="container text-center">
-          <h1 class="mb-5">About Linkify</h1>
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <img src="https://bsmedia.business-standard.com/_media/bs/img/article/2024-11/10/full/1731255466-6692.jpg?im=FitAndFill=(826,465)" alt="Linkify Overview" class="about-image mb-4" />
+        </div>
+        <div class="col-md-6">
+          <h1 class="mb-4">About Linkify</h1>
           <p class="lead">
-            Linkify is a platform dedicated to helping users stay safe online by providing tools for link verification, cybersecurity news, and URL shortening.
+            Linkify is a platform dedicated to helping users stay safe online by providing tools for link verification, cybersecurity news, and URL shortening. Our mission is to empower individuals and businesses to navigate the digital landscape with confidence and security.
+          </p>
+          <p>
+            In an age where online threats are ever-present, Linkify offers reliable solutions to verify the authenticity of links, stay updated with the latest cybersecurity trends, and simplify the sharing of URLs. Whether you're a casual internet user or a business professional, Linkify is here to enhance your online experience.
           </p>
         </div>
-      </section>
+        
+      </div>
     </div>
 
     <!-- Bootstrap JS -->

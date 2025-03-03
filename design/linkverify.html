@@ -4,49 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Verifier</title>
-    <script>
-        async function verifyLink() {
-            const link = document.getElementById('link').value;
-            const apiKey = 'YOUR_API_KEY'; // Replace with your API key
-            const apiUrl = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${apiKey}`;
-
-            const requestBody = {
-                client: {
-                    clientId: "yourcompanyname",
-                    clientVersion: "1.5.2"
-                },
-                threatInfo: {
-                    threatTypes: ["MALWARE", "SOCIAL_ENGINEERING"],
-                    platformTypes: ["ANY_PLATFORM"],
-                    threatEntryTypes: ["URL"],
-                    threatEntries: [
-                        { url: link }
-                    ]
-                }
-            };
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    body: JSON.stringify(requestBody)
-                });
-                const data = await response.json();
-                if (data.matches) {
-                    document.getElementById('result').innerText = 'The link is unsafe!';
-                } else {
-                    document.getElementById('result').innerText = 'The link is safe.';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('result').innerText = 'Error verifying the link.';
-            }
-        }
-    </script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
 </head>
-<body>
-    <h1>Link Verifier</h1>
-    <input type="text" id="link" placeholder="Enter link to verify">
-    <button onclick="verifyLink()">Verify Link</button>
-    <p id="result"></p>
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">Linkify</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarContent"
+                aria-controls="navbarContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="servicesDropdown"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Services
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="{% url 'verify' %}">Link Verification</a></li>
+                            <li><a class="dropdown-item" href="{% url 'cyber' %}">Cyber Security News</a></li>
+                            <li><a class="dropdown-item" href="{% url 'short' %}">URL Shortener</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Link Verifier</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" id="link" class="form-control" placeholder="Enter link to verify" aria-label="Link to verify">
+                    <button class="btn btn-primary" onclick="verifyLink()">Verify Link</button>
+                </div>
+                <p id="result" class="text-center"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
