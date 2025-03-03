@@ -3,42 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Validator</title>
+    <title>Link Verifier</title>
+    <script>
+        async function verifyLink() {
+            const link = document.getElementById('link').value;
+            const apiKey = 'YOUR_API_KEY'; // Replace with your API key
+            const apiUrl = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${apiKey}`;
+
+            const requestBody = {
+                client: {
+                    clientId: "yourcompanyname",
+                    clientVersion: "1.5.2"
+                },
+                threatInfo: {
+                    threatTypes: ["MALWARE", "SOCIAL_ENGINEERING"],
+                    platformTypes: ["ANY_PLATFORM"],
+                    threatEntryTypes: ["URL"],
+                    threatEntries: [
+                        { url: link }
+                    ]
+                }
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(requestBody)
+                });
+                const data = await response.json();
+                if (data.matches) {
+                    document.getElementById('result').innerText = 'The link is unsafe!';
+                } else {
+                    document.getElementById('result').innerText = 'The link is safe.';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'Error verifying the link.';
+            }
+        }
+    </script>
 </head>
 <body>
-    <h2>Check if URL is Safe</h2>
-    <form id="url-form">
-        <input type="text" id="url-input" placeholder="Enter URL" required>
-        <button type="submit">Check</button>
-    </form>
-
-    <h3>Result:</h3>
-    <div id="result-container"></div>
-
-    <script>
-        document.getElementById("url-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let url = document.getElementById("url-input").value;
-
-            fetch(`/check-url/?url=${encodeURIComponent(url)}`)
-                .then(response => response.json())
-                .then(data => {
-                    let resultContainer = document.getElementById("result-container");
-
-                    if (data.status === "invalid") {
-                        resultContainer.innerHTML = `<p style="color:orange;">⚠️ ${data.message}</p>`;
-                    } else if (data.status === "spam") {
-                        resultContainer.innerHTML = `<p style="color:red;">🚨 ${data.message}</p>`;
-                    } else if (data.status === "phishing") {
-                        resultContainer.innerHTML = `<p style="color:red;">🚨 This URL is phishing/malware!</p>`;
-                    } else if (data.status === "safe") {
-                        resultContainer.innerHTML = `<p style="color:green;">✅ ${data.message}</p>`;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById("result-container").innerHTML = `<p style="color:red;">Error checking URL</p>`;
-                });
-        });
-    </script>
+    <h1>Link Verifier</h1>
+    <input type="text" id="link" placeholder="Enter link to verify">
+    <button onclick="verifyLink()">Verify Link</button>
+    <p id="result"></p>
 </body>
 </html>
