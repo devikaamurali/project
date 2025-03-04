@@ -104,6 +104,7 @@
       form.addEventListener('submit', function(event) {
         event.preventDefault();
         var longUrl = document.getElementById('longUrl').value;
+        
 
         fetch('{% url "short" %}', {
           method: 'POST',
@@ -134,8 +135,12 @@
       copyButton.addEventListener('click', function() {
         shortUrlInput.select();
         document.execCommand('copy');
-        alert('Short URL copied to clipboard!');
+        copyButton.innerHTML="Copied!";
+        setTimeout(function() {
+    copyButton.innerHTML = "Copy";
+  }, 3000);
       });
+      
     });
   </script>
 

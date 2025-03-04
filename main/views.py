@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 import requests
+import urllib.request
 from .models import URLShortener
 from django.contrib import messages
 from django.http import JsonResponse
 import pyshorteners
+import socket
 
 # Create your views here.
 def index(request):
@@ -22,6 +24,23 @@ def feedback(request):
     return render(request, 'feedback.html')
 
 def verify(request):
+    if request.method == 'POST':
+        link = request.POST.get('link')
+        try:
+            # Attempt to open the URL
+            response = urllib.request.urlopen(link)
+            status_code = response.getcode()
+            if status_code == 200:
+                return JsonResponse({'status': 'valid', 'message': 'The link is valid!'})
+            else:
+                return JsonResponse({'status': 'invalid', 'message': 'The link returned a status code: {}'.format(status_code)})
+        except urllib.error.URLError as e:
+            if isinstance(e.reason, socket.gaierror):
+                return JsonResponse({'status': 'invalid', 'message': 'Could not resolve the domain name. Please check the URL.'})
+            return JsonResponse({'status': 'invalid', 'message': str(e)})
+        except Exception as e:
+            return JsonResponse({'status': 'invalid', 'message': str(e)})
+    
     return render(request, 'linkverify.html')
 
 def cyber(request):
