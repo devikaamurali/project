@@ -6,6 +6,9 @@ from django.contrib import messages
 from django.http import JsonResponse
 import pyshorteners
 import socket
+import qrcode
+from io import BytesIO
+import base64
 
 # Create your views here.
 def index(request):

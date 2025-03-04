@@ -12,4 +12,5 @@ urlpatterns = [
     path('verify/', views.verify, name='verify'),
     path('cyber/', views.cyber, name='cyber'),
     path('short/', views.short, name='short'),   
+    path('linkqr/', views.short, name='short'),   
 ]
