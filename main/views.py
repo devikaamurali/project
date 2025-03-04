@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 import requests
-
+from .models import URLShortener
+from django.http import JsonResponse
+import pyshorteners
 
 # Create your views here.
 def index(request):
@@ -35,8 +37,21 @@ def cyber(request):
         # You can handle the error as needed, e.g., log it or set a message for the template
 
     return render(request, 'cyber.html', {'news_articles': news_articles})
+
 def short(request):
-    return render(request, 'short.html')
+    if request.method == 'POST':
+        original_url = request.POST.get('original_url')
+        s = pyshorteners.Shortener()
+        short_url = s.tinyurl.short(original_url)
+        url_shortener, created = URLShortener.objects.get_or_create(
+            original_url=original_url, short_url=short_url
+        )
+        return JsonResponse({'short_url': short_url})
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+ 
+
+
 
 
 
