@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 import requests
 from .models import URLShortener
+from django.contrib import messages
 from django.http import JsonResponse
 import pyshorteners
 
@@ -41,14 +42,29 @@ def cyber(request):
 def short(request):
     if request.method == 'POST':
         original_url = request.POST.get('original_url')
-        s = pyshorteners.Shortener()
-        short_url = s.tinyurl.short(original_url)
-        url_shortener, created = URLShortener.objects.get_or_create(
-            original_url=original_url, short_url=short_url
-        )
-        return JsonResponse({'short_url': short_url})
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
+        if not is_valid_url(original_url):
+            messages.error(request, 'Please enter a valid URL.')
+            return JsonResponse({'error': 'Invalid URL'}, status=400)
 
+        try:
+            s = pyshorteners.Shortener()
+            short_url = s.tinyurl.short(original_url)
+            url_shortener, created = URLShortener.objects.get_or_create(
+                original_url=original_url, short_url=short_url
+            )
+            if created:
+                messages.success(request, 'URL shortened successfully!')
+            else:
+                messages.info(request, 'This URL has already been shortened.')
+            return JsonResponse({'short_url': short_url})
+        except Exception as e:
+            messages.error(request, 'An error occurred while shortening the URL.')
+            return JsonResponse({'error': 'An error occurred'}, status=500)
+    return render(request, 'short.html')
+
+def is_valid_url(url):
+    # Implement URL validation logic here
+    return True
  
 
 

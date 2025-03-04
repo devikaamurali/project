@@ -11,6 +11,5 @@ urlpatterns = [
     path('feedback/', views.feedback, name='feedback'),
     path('verify/', views.verify, name='verify'),
     path('cyber/', views.cyber, name='cyber'),
-    path('short/', views.short, name='short'),
-    
+    path('short/', views.short, name='short'),   
 ]
