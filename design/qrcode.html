@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Generator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+        }
+        .main-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        #qrcode {
+            margin: 20px auto;
+            width: 250px;
+            height: 250px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-custom {
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        #downloadBtn {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">Linkify</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarContent"
+                aria-controls="navbarContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="service.html"
+                            id="servicesDropdown"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            Services
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="{% url 'verify' %}">Link Verification</a></li>
+                            <li><a class="dropdown-item" href="{% url 'cyber' %}">Cyber Security News</a></li>
+                            <li><a class="dropdown-item" href="{% url 'short' %}">URL Shortener</a></li>
+                            <li><a class="dropdown-item active" href="{% url 'qrcode' %}">QR Code Generator</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-container">
+            <h1 class="mb-4">QR Code Generator</h1>
+            <div class="input-group mb-3">
+                <input type="text" id="text" class="form-control" placeholder="Enter text or URL">
+                <button class="btn btn-primary" onclick="generateQR()">Generate QR Code</button>
+            </div>
+            <div id="qrcode" class="rounded"></div>
+            <div class="mt-3">
+                <button id="downloadBtn" class="btn btn-success btn-custom">Download QR Code</button>
+                <button onclick="clearQR()" class="btn btn-secondary btn-custom">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        let qrCodeInstance = null;
+
+        function generateQR() {
+            // Clear previous QR code
+            const qrcodeDiv = document.getElementById('qrcode');
+            qrcodeDiv.innerHTML = '';
+            document.getElementById('downloadBtn').style.display = 'none';
+            
+            // Get input text
+            const text = document.getElementById('text').value;
+            
+            // Check if text is not empty
+            if (text.trim() === '') {
+                alert('Please enter some text or a URL');
+                return;
+            }
+            
+            // Generate QR Code
+            qrCodeInstance = new QRCode(qrcodeDiv, {
+                text: text,
+                width: 250,
+                height: 250,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Show download button
+            document.getElementById('downloadBtn').style.display = 'inline-block';
+            document.getElementById('downloadBtn').onclick = downloadQR;
+        }
+
+        function downloadQR() {
+            if (!qrCodeInstance) return;
+
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = 250;
+            canvas.height = 250;
+            const ctx = canvas.getContext('2d');
+
+            // Get QR code image
+            const qrImg = document.querySelector('#qrcode img');
+            
+            // Draw QR code on canvas
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(qrImg, 0, 0, 250, 250);
+
+            // Convert to data URL and download
+            const dataUrl = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'qr_code.png';
+            link.href = dataUrl;
+            link.click();
+        }
+
+        function clearQR() {
+            document.getElementById('text').value = '';
+            document.getElementById('qrcode').innerHTML = '';
+            document.getElementById('downloadBtn').style.display = 'none';
+            qrCodeInstance = null;
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',  # Add this line if it's not already present
+      
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SENDGRID_API_KEY = 'your_sendgrid_api_key'
+
 
 

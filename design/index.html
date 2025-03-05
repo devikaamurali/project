@@ -66,6 +66,7 @@
                 <li><a class="dropdown-item" href="{% url 'verify' %}">Link Verification</a></li>
                 <li><a class="dropdown-item" href="{% url 'cyber' %}">Cyber Security News</a></li>
                 <li><a class="dropdown-item" href="{% url 'short' %}">URL Shortener</a></li>
+                <li><a class="dropdown-item" href="{% url 'qrcode' %}">QR Code Generator</a></li>
               </ul>
             </li>
             <li class="nav-item"><a class="nav-link" href="{% url 'feedback' %}">Feedback</a>
@@ -75,37 +76,47 @@
       </div>
     </nav>
     
-    <!-- Features Section -->
-    <div class="centered-content">
-      <section class="py-5">
-        <div class="container text-center">
-          <h1 class="mb-5">Our Key Features</h1>
-          <div class="row g-4">
-            <div class="col-md-4">
-              <div class="bg-white p-4 rounded shadow-sm h-100">
-                <i class="bi bi-shield-check feature-icon mb-3"></i>
-                <h2 class="h4">Link Verification</h2>
-                <p class="text-muted">Verify URL authenticity and avoid phishing threats.</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-white p-4 rounded shadow-sm h-100">
-                <i class="bi bi-newspaper feature-icon mb-3"></i>
-                <h2 class="h4">Cyber Security News</h2>
-                <p class="text-muted">Stay updated with the latest threats and security news.</p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-white p-4 rounded shadow-sm h-100">
-                <i class="bi bi-link-45deg feature-icon mb-3"></i>
-                <h2 class="h4">URL Shortener</h2>
-                <p class="text-muted">Create secure and concise links easily.</p>
-              </div>
-            </div>
+   <!-- Features Section -->
+<div class="centered-content">
+  <section class="py-5">
+    <div class="container text-center">
+      <h1 class="mb-5">Our Key Features</h1>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="bg-white p-4 rounded shadow-sm h-100">
+            <i class="bi bi-shield-check feature-icon mb-3"></i>
+            <h2 class="h4">Link Verification</h2>
+            <p class="text-muted">Verify URL authenticity and avoid phishing threats.</p>
           </div>
         </div>
-      </section>
+        <div class="col-md-4">
+          <div class="bg-white p-4 rounded shadow-sm h-100">
+            <i class="bi bi-newspaper feature-icon mb-3"></i>
+            <h2 class="h4">Cyber Security News</h2>
+            <p class="text-muted">Stay updated with the latest threats and security news.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-white p-4 rounded shadow-sm h-100">
+            <i class="bi bi-link-45deg feature-icon mb-3"></i>
+            <h2 class="h4">URL Shortener</h2>
+            <p class="text-muted">Create secure and concise links easily.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4 mt-4">
+        <div class="col-md-4 offset-md-2">
+          <div class="bg-white p-4 rounded shadow-sm h-100">
+            <i class="bi bi-qr-code feature-icon mb-3"></i>
+            <h2 class="h4">QR Code Generator</h2>
+            <p class="text-muted">Convert text to QR codes for easy sharing.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+</div>
+
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

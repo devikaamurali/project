@@ -8,7 +8,6 @@ import pyshorteners
 import socket
 import qrcode
 from io import BytesIO
-import base64
 
 # Create your views here.
 def index(request):
@@ -88,7 +87,8 @@ def is_valid_url(url):
     # Implement URL validation logic here
     return True
  
-
+def qrcode(request):
+    return render(request, 'qrcode.html')
 
 
 

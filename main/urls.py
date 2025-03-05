@@ -1,6 +1,5 @@
-from django.contrib import admin
-from . import views
 from django.urls import path
+from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -11,6 +10,6 @@ urlpatterns = [
     path('feedback/', views.feedback, name='feedback'),
     path('verify/', views.verify, name='verify'),
     path('cyber/', views.cyber, name='cyber'),
-    path('short/', views.short, name='short'),   
-    path('linkqr/', views.short, name='short'),   
+    path('short/', views.short, name='short'),
+    path('qrcode/', views.qrcode, name='qrcode'),  # Add this line
 ]
